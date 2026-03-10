@@ -19,7 +19,6 @@
 
         .ms-title { font-size: 24px; color: #00E5FF; font-family: monospace; font-weight: bold; margin-bottom: 30px; }
         
-        /* MS-ROW VE MS-CARD GÜNCELLEMESİ (3 Yanyana Kutu İçin) */
         .ms-row { display: flex; width: 85%; max-width: 1000px; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
         .ms-card { flex: 1; background: #111827; border: 3px solid #374151; border-radius: 20px; padding: 20px; text-align: center; cursor: pointer; transition: 0.2s; }
         .ms-card:hover { border-width: 4px; transform: scale(1.02); }
@@ -133,8 +132,11 @@
         .action-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
         .rob-val { font-size: 22px; font-weight: bold; color: #00E5FF; }
         
-        .btn-abort { background: linear-gradient(#8B0000, #330000); color: white; border: 2px solid #FF0000; padding: 15px 20px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s;}
+        .btn-abort { background: linear-gradient(#8B0000, #330000); color: white; border: 2px solid #FF0000; padding: 15px 20px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s; margin-left: 10px;}
         .btn-abort:hover { background: #FF0000; box-shadow: 0 0 10px #FF0000; }
+
+        .btn-complete { background: linear-gradient(#004d00, #001a00); color: white; border: 2px solid #00FF00; padding: 15px 20px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s;}
+        .btn-complete:hover { background: #00FF00; box-shadow: 0 0 10px #00FF00; color: black; }
 
         #bottom-nav { height: 70px; background-color: #050505; border-top: 2px solid #222; display: flex; justify-content: space-around; align-items: center; }
         .nav-btn { background: none; border: none; color: #666; font-size: 16px; font-weight: bold; cursor: pointer; padding: 10px 20px; border-radius: 5px; transition: 0.2s; }
@@ -296,7 +298,7 @@
                         <div class="pid-valve" id="v7" style="left: 41%; top: 60%;"></div>
 
                         <div class="pid-text" style="left: 65%; top: 38%; transform: translateX(-50%); color: #00E5FF;">V5</div>
-                        <div class="pid-valve" id="v5" style="left: 65%; top: 50%;"></div>
+                        <div class="pid-valve" id="v5" style="left: 65%; top: 50%; transform: translate(-50%, -50%) rotate(90deg);"></div>
 
                         <div class="pid-pump" id="pP" style="left: 35%; top: 25%;">P</div>
                         <div class="pid-text" style="left: 32%; top: 15%; color: cyan;">Port Pump</div>
@@ -311,12 +313,12 @@
                         <div style="position: absolute; left: 48%; top: 4%; transform: translate(-50%, -50%); width: 40px; height: 20px; border: 2px solid white; background-color:#111; z-index: 2;"></div>
                         <div class="pid-text" style="left: 52%; top: 2%;">OVERBOARD</div>
                         <div class="pid-text" style="left: 48%; top: 27%; transform: translateX(-50%); color: #00E5FF;">V4</div>
-                        <div class="pid-valve" id="v4" style="left: 48%; top: 15%;"></div>
+                        <div class="pid-valve" id="v4" style="left: 48%; top: 15%; transform: translate(-50%, -50%) rotate(90deg);"></div>
 
                         <div style="position: absolute; left: 48%; top: 96%; transform: translate(-50%, -50%); width: 40px; height: 20px; border: 2px solid white; background-color:#111; z-index: 2;"></div>
                         <div class="pid-text" style="left: 52%; top: 93%;">OVERBOARD</div>
                         <div class="pid-text" style="left: 48%; top: 73%; transform: translateX(-50%); color: #00E5FF;">V8</div>
-                        <div class="pid-valve" id="v8" style="left: 48%; top: 85%;"></div>
+                        <div class="pid-valve" id="v8" style="left: 48%; top: 85%; transform: translate(-50%, -50%) rotate(90deg);"></div>
 
                         <div style="position: absolute; left: 80%; top: 5%; width: 18%; height: 40%; background: #111; border: 2px solid #444; padding: 5px; display: flex; flex-direction: column; align-items: center; overflow-y: auto;">
                             <div class="pid-text" style="position: relative; top: 0; left: 0; transform: none; margin-bottom: 5px; color: cyan;">PORT TANKS</div>
@@ -384,6 +386,18 @@
 
                 <div class="panel-box" style="flex-grow: 1; display: flex; flex-direction: column;">
                     <div class="header-title">CARGO LINES PRESSURE</div>
+                    
+                    <div style="display: flex; justify-content: space-around; margin-top: 15px; margin-bottom: 5px; background: #0A0A0A; padding: 10px; border: 1px solid #333; border-radius: 8px;">
+                        <div style="text-align: center;">
+                            <div style="color: cyan; font-size: 12px; margin-bottom: 2px;">DRAFT FWD</div>
+                            <div id="tv-draft-fwd" style="font-family: monospace; font-size: 18px; font-weight: bold; color: white;">0.00 m</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: cyan; font-size: 12px; margin-bottom: 2px;">DRAFT AFT</div>
+                            <div id="tv-draft-aft" style="font-family: monospace; font-size: 18px; font-weight: bold; color: white;">0.00 m</div>
+                        </div>
+                    </div>
+
                     <div class="dial-box">
                         <div style="color: gray; font-size: 14px; margin-bottom: 5px;">LINE PRESSURE</div>
                         <div id="tv-line-press" class="dial-val" style="color: white;">0.0 BAR</div>
@@ -393,8 +407,11 @@
                         <div id="tv-mani-press" class="dial-val" style="color: yellow;">0.0 BAR</div>
                     </div>
                     <div class="action-row">
-                        <div id="tv-rob" class="rob-val">ROB: 0 m3</div>
-                        <button id="btn-abort-main" class="btn-abort">ABORT<br>MISSION</button>
+                        <div id="tv-rob" class="rob-val">ROB: 0.000 m3</div>
+                        <div>
+                            <button id="btn-complete-main" class="btn-complete">COMPLETE<br>OPERATION</button>
+                            <button id="btn-abort-main" class="btn-abort">ABORT<br>MISSION</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -417,6 +434,15 @@
                 <button class="btn-return" onclick="closeAbortModal()">RETURN</button>
                 <button class="btn-execute" onclick="executeAbort()">EXECUTE ABORT</button>
             </div>
+        </div>
+    </div>
+
+    <div id="complete-modal" class="modal-overlay">
+        <div class="override-box" id="complete-box">
+            <div class="override-header" id="complete-header">/// OPERATION REPORT ///</div>
+            <div class="override-msg" id="complete-msg" style="text-align: left; font-size: 16px;">
+                </div>
+            <button class="btn-execute" style="width: 100%; margin: 0; background-color:#111; color:white; border-color:white;" onclick="location.reload()">RETURN TO MENU</button>
         </div>
     </div>
 
@@ -455,25 +481,38 @@
 
             let constraintsText = document.getElementById('br-constraints-text');
             if (isLoad) {
-                constraintsText.innerHTML = "• Maximum List: 1.0°<br>• Maximum Trim: 3.0m";
+                constraintsText.innerHTML = "• Maximum List: 1.0°<br>• Maximum Trim: 3.0m<br>• Minimum Draft: 3.0m";
             } else {
-                constraintsText.innerHTML = "• Maximum List: 1.0°<br>• Maximum Trim: 3.0m<br>• Max 4 Cargo Pumps running simultaneously<br>• Max Manifold Pressure: 10.0 bar";
+                constraintsText.innerHTML = "• Maximum List: 1.0°<br>• Maximum Trim: 3.0m<br>• Minimum Draft: 3.0m<br>• Max 4 Cargo Pumps running simultaneously<br>• Max Manifold Pressure: 10.0 bar";
             }
 
             navigate('screen-briefing');
         }
 
-        function startSimulation() {
+       function startSimulation() {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById('sim-container').style.display = 'flex';
             
+            SimEngine.initTanks(currentMissionId); 
+            
             let objText = "";
-            if(currentMissionId === 1) objText = "MISSION: DISCHARGE CARGO TO SHORE";
-            else if(currentMissionId === 2) objText = "MISSION: LOAD CARGO FROM SHORE";
-            else if(currentMissionId === 3) objText = "MISSION (RANDOM): DISCHARGE CARGO";
-            else if(currentMissionId === 4) objText = "MISSION (RANDOM): LOAD CARGO";
-            else if(currentMissionId === 5) objText = "TUTORIAL: LOAD CARGO";
-            else if(currentMissionId === 6) objText = "TUTORIAL: DISCHARGE CARGO";
+            if(currentMissionId === 1) {
+                objText = "MISSION: DISCHARGE ALL CARGO TO SHORE";
+            } else if(currentMissionId === 2) {
+                objText = "MISSION: LOAD CARGO FROM SHORE";
+            } else if(currentMissionId === 3) {
+                // Tahliye için kalması gereken ROB hesaplanıyor
+                let targetRob = SimEngine.initialTotalVolume - SimEngine.targetOperationVolume;
+                objText = `MISSION: DISCHARGE ${SimEngine.targetOperationVolume} m3 (TARGET ROB: ${targetRob.toFixed(3)} m3)`;
+            } else if(currentMissionId === 4) {
+                // Yükleme için ulaşılması gereken ROB hesaplanıyor
+                let targetRob = SimEngine.initialTotalVolume + SimEngine.targetOperationVolume;
+                objText = `MISSION: LOAD ${SimEngine.targetOperationVolume} m3 (TARGET ROB: ${targetRob.toFixed(3)} m3)`;
+            } else if(currentMissionId === 5) {
+                objText = "TUTORIAL: LOAD CARGO";
+            } else if(currentMissionId === 6) {
+                objText = "TUTORIAL: DISCHARGE CARGO";
+            }
             
             document.getElementById('tv-objective').innerText = objText;
 
@@ -507,9 +546,12 @@
             isRunning: false,
             missionId: 1, 
             shipList: 0, shipTrim: 0, linePressure: 0, manifoldPressure: 0,
-            bmPct: 0, bmType: "SAFE", sfPct: 0, 
+            bmPct: 0, bmType: "SAFE", sfPct: 0, draftFwd: 0, draftAft: 0,
             manifold: false, 
             currentAlarms: [], 
+
+            targetOperationVolume: 0, // NEW: Hedef Yük/Tahliye miktarı
+            initialTotalVolume: 0,    // NEW: Operasyon başındaki miktar
 
             b_v1: false, b_v2: false, b_v3: false, b_v4: false,
             b_v5: false, b_v6: false, b_v7: false, b_v8: false,
@@ -569,9 +611,13 @@
                         sT.vol = sT.cap * f; sT.press = Math.floor(Math.random() * 36) + 5; sT.pv = "CLOSED";
                     }
                     this.ballastTanks.forEach(t => { t.vol = 0; t.vOpen = false; });
-                } else if (id === 4 || id === 5) {
+                } else if (id === 5) {
+                    // TUTORIAL LOADING - Ballastlar %98 Dolu
                     this.tanks.forEach(t => { t.vol = 0; t.press = Math.floor(Math.random() * 36) + 5; t.pv = "CLOSED"; });
-                    let bfill = (id === 5) ? 0.5 : (0.5 + Math.random() * 0.3);
+                    this.ballastTanks.forEach(t => { t.vol = t.cap * 0.98; t.vOpen = false; });
+                } else if (id === 4) {
+                    this.tanks.forEach(t => { t.vol = 0; t.press = Math.floor(Math.random() * 36) + 5; t.pv = "CLOSED"; });
+                    let bfill = 0.5 + Math.random() * 0.3;
                     for(let i=0; i<4; i++) {
                         let f = bfill;
                         if(i === 2 || i === 3) f += 0.15; 
@@ -581,6 +627,22 @@
                         bP.vol = bP.cap * f;
                         bS.vol = bS.cap * f;
                     }
+                }
+
+                // NEW: Operasyon başlangıcı hacim tespiti ve Random görevler için hedef tayini
+                let startVol = 0;
+                this.tanks.forEach(t => startVol += t.vol);
+                this.initialTotalVolume = startVol;
+
+                if (id === 3) { 
+                    // Random Discharge Target (Sahip olunan yükten bir miktar tahliye)
+                    let maxD = startVol > 1500 ? startVol - 200 : 1000;
+                    this.targetOperationVolume = Math.floor(Math.random() * (maxD - 800) + 800);
+                } else if (id === 4) { 
+                    // Random Load Target (Boş gemiye kapasite dahilinde yükleme)
+                    this.targetOperationVolume = Math.floor(Math.random() * (8000 - 2000) + 2000);
+                } else {
+                    this.targetOperationVolume = 0; // Diğer senaryolar (Tutorial vs)
                 }
             },
 
@@ -816,7 +878,7 @@
                     }
                 });
 
-                // --- STABILITY CALCULATION ---
+                // --- STABILITY & DRAFT CALCULATION ---
                 let wPort = 0, wStbd = 0, wFwd = 0, wAft = 8.3333; 
                 this.tanks.forEach(t => {
                     if(t.isPort) wPort += t.vol; else wStbd += t.vol;
@@ -829,6 +891,17 @@
 
                 this.shipList = (wStbd - wPort) * 0.008;
                 this.shipTrim = (wAft - wFwd) * 0.003;
+
+                const lightShip = 4000;
+                const maxC = 9465.8; // Approx max cargo capacity
+                let currentC = 0, currentB = 0;
+                this.tanks.forEach(t => currentC += t.vol);
+                this.ballastTanks.forEach(t => currentB += t.vol);
+
+                // Ortama Draft Hesaplaması (Kargo ve Balast ayrıştırılarak)
+                let meanDraft = 2.00 + (currentC / maxC) * 8.00 + (currentB / 5600) * 4.00; 
+                this.draftAft = meanDraft + (this.shipTrim / 2);
+                this.draftFwd = meanDraft - (this.shipTrim / 2);
 
                 let weightBlocks = [0, 0, 0, 0]; 
                 this.tanks.forEach(t => {
@@ -876,6 +949,12 @@
                 }
                 if (this.sfPct > 100.0) {
                     this.triggerGameOver(`HULL BREACH:<br>SHEAR FORCE EXCEEDED 100%`);
+                    return;
+                }
+                
+                // MİNİMUM DRAFT KONTROLÜ (Gemi havalanamaz)
+                if (this.draftFwd < 3.00 || this.draftAft < 3.00) {
+                    this.triggerGameOver(`MINIMUM DRAFT VIOLATION:<br>DRAFT DROPPED BELOW 3.00m!<br>(FWD: ${this.draftFwd.toFixed(2)}m, AFT: ${this.draftAft.toFixed(2)}m)`);
                     return;
                 }
             }
@@ -942,8 +1021,6 @@
 
         // --- ARAYÜZ (UI) OLUŞTURMA ---
         function initUI() {
-            SimEngine.initTanks(currentMissionId); 
-
             // 1. OVERVIEW EKRANI
             const ovPort = document.getElementById('ov-row-port');
             const ovStbd = document.getElementById('ov-row-stbd');
@@ -964,7 +1041,7 @@
                             <div id="ov-liq-${t.id}" class="liquid" style="height:0%;"></div>
                             ${markersHTML}
                         </div>
-                        <div class="tank-info val-vol" id="ov-vol-${t.id}">0 m3</div>
+                        <div class="tank-info val-vol" id="ov-vol-${t.id}">0.0 m3</div>
                         <div class="tank-info val-ullage" id="ov-ull-${t.id}">ULL: 0.00 m</div>
                         <div class="tank-info val-rate" id="ov-rate-${t.id}">0 m3/h</div>
                         <div class="tank-info val-press" id="ov-press-${t.id}">0 mbar</div>
@@ -980,7 +1057,7 @@
                             <div id="ov-liq-${t.id}" class="liquid" style="height:0%;"></div>
                             ${markersHTML}
                         </div>
-                        <div class="tank-info val-vol" id="ov-vol-${t.id}">0 m3</div>
+                        <div class="tank-info val-vol" id="ov-vol-${t.id}">0.0 m3</div>
                         <div class="tank-info val-ullage" id="ov-ull-${t.id}">ULL: 0.00 m</div>
                         <div class="tank-info val-rate" id="ov-rate-${t.id}">0 m3/h</div>
                         <div class="tank-info val-press" id="ov-press-${t.id}">0 mbar</div>
@@ -1030,7 +1107,7 @@
                             <div id="bl-liq-${t.id}" class="liquid liquid-ballast" style="height:0%;"></div>
                             ${markersHTML}
                         </div>
-                        <div class="tank-info val-vol" id="bl-vol-${t.id}">0 m3</div>
+                        <div class="tank-info val-vol" id="bl-vol-${t.id}">0.0 m3</div>
                         <div class="tank-info val-rate" id="bl-rate-${t.id}" style="color: #00FF00;">0 m3/h</div>
                     </div>`;
             });
@@ -1223,7 +1300,7 @@
                 let liq = document.getElementById(`ov-liq-${t.id}`);
                 if(liq) liq.style.height = pct + "%";
                 let vol = document.getElementById(`ov-vol-${t.id}`);
-                if(vol) vol.innerText = `${t.vol.toFixed(1)} m3 (${pct.toFixed(1)}%)`;
+                if(vol) vol.innerText = `${t.vol.toFixed(3)} m3 (${pct.toFixed(1)}%)`; // 3 HANE KÜSÜRAT EKLENDİ
                 
                 let ullage = 0.00;
                 if (volPct >= 0.978) {
@@ -1275,7 +1352,7 @@
                 let liq = document.getElementById(`bl-liq-${t.id}`);
                 if(liq) liq.style.height = pct + "%";
                 let vol = document.getElementById(`bl-vol-${t.id}`);
-                if(vol) vol.innerText = `${Math.floor(t.vol)} m3 (${pct.toFixed(1)}%)`;
+                if(vol) vol.innerText = `${t.vol.toFixed(3)} m3 (${pct.toFixed(1)}%)`;
                 let rate = document.getElementById(`bl-rate-${t.id}`);
                 if(rate) rate.innerText = `Rate: ${Math.floor(Math.abs(t.rate))} m3/h`;
             });
@@ -1294,9 +1371,16 @@
             let elPS = document.getElementById('pS');
             if(elPS) { if(SimEngine.bpStbdOn) elPS.classList.add('on'); else elPS.classList.remove('on'); }
 
-            document.getElementById("tv-rob").innerText = `ROB: ${Math.floor(totalRob)} m3`;
+            // NEW: ROB Küsuratlı gösterimi (3 Hane)
+            document.getElementById("tv-rob").innerText = `ROB: ${totalRob.toFixed(3)} m3`;
             document.getElementById("tv-line-press").innerText = `${SimEngine.linePressure.toFixed(1)} BAR`;
             document.getElementById("tv-mani-press").innerText = `${SimEngine.manifoldPressure.toFixed(1)} BAR`;
+
+            let tvDraftFwd = document.getElementById("tv-draft-fwd");
+            if(tvDraftFwd) tvDraftFwd.innerText = SimEngine.draftFwd.toFixed(2) + " m";
+
+            let tvDraftAft = document.getElementById("tv-draft-aft");
+            if(tvDraftAft) tvDraftAft.innerText = SimEngine.draftAft.toFixed(2) + " m";
 
             let listText = SimEngine.shipList > 0 ? "STARBOARD" : (SimEngine.shipList < 0 ? "PORT" : "");
             let trimText = SimEngine.shipTrim > 0 ? "AFT" : (SimEngine.shipTrim < 0 ? "FWD" : "");
@@ -1325,19 +1409,15 @@
             if(bigValBm) { bigValBm.innerText = `${SimEngine.bmPct.toFixed(1)}%\n${SimEngine.bmType}`; bigValBm.style.color = bmColor; }
             let bigValSf = document.getElementById("big-val-sf");
             if(bigValSf) { bigValSf.innerText = `${SimEngine.sfPct.toFixed(1)}%`; bigValSf.style.color = sfColor; }
-
-            const lightShip = 4000;
-            const currentC = SimEngine.tanks.reduce((sum, t) => sum + t.vol, 0);
-            const currentB = SimEngine.ballastTanks.reduce((sum, t) => sum + t.vol, 0);
-            const currentDisp = lightShip + currentC + currentB;
-            const maxC = SimEngine.tanks.reduce((sum, t) => sum + t.cap, 0);
-            const maxDisp = lightShip + maxC;
             
-            let draftRatio = currentDisp / maxDisp;
+            // Geminin Uçmasını Engelleyen Yeni Görsel Fizik Oranı
+            let meanDraft = (SimEngine.draftFwd + SimEngine.draftAft) / 2;
+            let draftRatio = (meanDraft - 3.0) / 8.5; 
             if(draftRatio > 1) draftRatio = 1;
+            if(draftRatio < 0) draftRatio = 0;
             
-            const maxRise = 80; 
-            let currentBottom = 20 + ((1 - draftRatio) * maxRise);
+            const maxRise = 40; // Maksimum yükselme oranı azaltıldı (gemi tamamen sudan çıkmaz)
+            let currentBottom = 10 + ((1 - draftRatio) * maxRise);
 
             const listDeg = SimEngine.shipList * 1.5;
             const trimDeg = -SimEngine.shipTrim * 2;
@@ -1357,9 +1437,74 @@
             if(iStabSide) { iStabSide.style.transform = `rotate(${trimDeg}deg)`; iStabSide.style.bottom = `${currentBottom}px`; }
         }
 
+        // --- ABORT MODAL ---
         document.getElementById("btn-abort-main").addEventListener("click", () => { document.getElementById("override-modal").style.display = "flex"; });
         function closeAbortModal() { document.getElementById("override-modal").style.display = "none"; }
         function executeAbort() { closeAbortModal(); alert("MISSION ABORTED!"); location.reload(); }
+
+        // --- NEW: COMPLETE OPERATION MODAL & DISCREPANCY CHECK ---
+        document.getElementById("btn-complete-main").addEventListener("click", evaluateMissionComplete);
+
+        function evaluateMissionComplete() {
+            if (!SimEngine.isRunning) return;
+            SimEngine.isRunning = false; // Simülasyonu durdur
+            
+            let currentVol = 0;
+            SimEngine.tanks.forEach(t => currentVol += t.vol);
+            
+            let isLoad = (currentMissionId === 2 || currentMissionId === 4 || currentMissionId === 5);
+            let actualChange = isLoad ? (currentVol - SimEngine.initialTotalVolume) : (SimEngine.initialTotalVolume - currentVol);
+            if (actualChange < 0) actualChange = 0;
+
+            let discrepancy = actualChange - SimEngine.targetOperationVolume;
+            let absDiscrepancy = Math.abs(discrepancy);
+            
+            // Binde 3 Kuralı (Tolerance Calculation)
+            let margin = SimEngine.targetOperationVolume * 0.003; 
+            let isSuccess = false;
+
+            // Toleransı sadece Random Görevler (3 ve 4) için işlet, diğerlerinde esnek tut
+            if (currentMissionId === 3 || currentMissionId === 4) {
+                isSuccess = absDiscrepancy <= margin;
+            } else {
+                // Standart görevler için geniş tolerans veriyoruz (opsiyonel)
+                isSuccess = absDiscrepancy <= 50; 
+            }
+
+            document.getElementById("complete-modal").style.display = "flex";
+            let header = document.getElementById("complete-header");
+            let box = document.getElementById("complete-box");
+            
+            if (isSuccess) {
+                header.innerText = "/// OPERATION SUCCESSFUL ///";
+                header.style.backgroundColor = "#00FF00";
+                header.style.color = "black";
+                box.style.borderColor = "#00FF00";
+            } else {
+                header.innerText = "/// MISSION FAILED ///";
+                header.style.backgroundColor = "red";
+                header.style.color = "white";
+                box.style.borderColor = "red";
+            }
+
+            let typeStr = isLoad ? "Loaded" : "Discharged";
+            
+            let msgHTML = `
+                <div style="font-family: monospace; font-size: 16px; line-height: 1.8; text-align: left;">
+                    <span style="color:cyan;">TARGET ${typeStr.toUpperCase()}:</span> ${SimEngine.targetOperationVolume.toFixed(3)} m3<br>
+                    <span style="color:cyan;">ACTUAL ${typeStr.toUpperCase()}:</span> ${actualChange.toFixed(3)} m3<br>
+                    <hr style="border-color:#333;">
+                    <span style="color:yellow;">CURRENT ROB:</span> ${currentVol.toFixed(3)} m3<br>
+                    <hr style="border-color:#333;">
+                    <span style="color:#AAA;">DISCREPANCY:</span> ${(discrepancy > 0 ? "+" : "")}${discrepancy.toFixed(3)} m3<br>
+                    <span style="color:#AAA;">TOLERANCE (0.3%):</span> &plusmn;${margin.toFixed(3)} m3<br>
+                </div>
+                <div style="margin-top:20px; font-size:18px; font-weight:bold;">
+                    RESULT: ${isSuccess ? "<span style='color:#00FF00;'>PASSED ALIGNED WITH TOLERANCE</span>" : "<span style='color:red;'>FAILED DISCREPANCY LIMIT</span>"}
+                </div>
+            `;
+            document.getElementById("complete-msg").innerHTML = msgHTML;
+        }
 
     </script>
 </body>
